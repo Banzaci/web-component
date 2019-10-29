@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>WC</title>
+      <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+      <web-component label="We component"></web-component>
+      <script src="./app.js"></script>
+      <script>
+        const element = document.querySelector('web-component');
+        element.label = 'Click Me';
+        element.addEventListener('onClick', value => console.log(value));
+      </script>
+  </body>
+</html>

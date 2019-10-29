@@ -1,0 +1,11 @@
+{
+  "name": "web-component",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/Banzaci/web-component.git",
+    "type": "git"
+  },
+  "author": "Michael Larsson <michedotab@gmail.com>",
+  "license": "MIT"
+}

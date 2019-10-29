@@ -1,0 +1,8 @@
+:root {
+  --main-color: red;
+  --main-padding: 12px;
+}
+
+web-component {
+  --background-color: grey;
+}
