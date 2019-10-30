@@ -117,14 +117,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"tui-cities/index.js":[function(require,module,exports) {
+})({"tui-season/index.js":[function(require,module,exports) {
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -145,58 +141,47 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 var template = document.createElement('template');
-template.innerHTML = "\n  <style>\n    .container {\n      padding: var(--main-padding, 18px);\n      background: var(--background-color, black);\n      color: var(--main-color, white);\n    }\n  </style>\n  <div class=\"container\">\n    <ul id=\"cities\"></ul>\n  </div>\n";
+template.innerHTML = "\n<form name=\"season\">\n  <ul>\n    <li>\n      <label>summer</label>\n      <input type=\"radio\" name=\"season\" value=\"summer\" />\n    </li>\n    <li>\n      <label>winter</label>\n      <input type=\"radio\" name=\"season\" value=\"winter\" />\n    </li>\n  </ul>\n</form>\n";
 
-var Cities =
+var Season =
 /*#__PURE__*/
 function (_HTMLElement) {
-  _inherits(Cities, _HTMLElement);
+  _inherits(Season, _HTMLElement);
 
-  function Cities() {
+  function Season() {
     var _this;
 
-    _classCallCheck(this, Cities);
+    _classCallCheck(this, Season);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Cities).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Season).call(this));
     _this.shadowRoot = _this.attachShadow({
       mode: 'open'
     });
 
     _this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    _this.ul = _this.shadowRoot.querySelector('#cities');
-    window.addEventListener('cities', function (_ref) {
-      var detail = _ref.detail;
+    _this.element = _this.shadowRoot.querySelector('ul'); // let arr = [];
 
-      _this.render(_this.renderCities(detail));
+    _this.element.addEventListener('click', function (e) {
+      // if (e.target.checked) {
+      //   arr = [...arr, e.target.name]
+      // } else {
+      //   arr = [...arr.filter( c => c !== e.target.name)]
+      // }
+      window.dispatchEvent(new CustomEvent('filter', {
+        detail: {
+          season: e.target.value
+        }
+      }));
     });
+
     return _this;
   }
 
-  _createClass(Cities, [{
-    key: "renderCities",
-    value: function renderCities(data) {
-      return data.map(function (_ref2) {
-        var city = _ref2.city;
-        return "\n        <li>\n          <tui-city city=\"".concat(city, "\"></tui-city>\n        </li>\n      ");
-      }).join('');
-    }
-  }, {
-    key: "attributeChangedCallback",
-    value: function attributeChangedCallback(_, __, data) {
-      this.render(this.renderCities(data));
-    }
-  }, {
-    key: "render",
-    value: function render(cityData) {
-      this.ul.innerHTML = cityData;
-    }
-  }]);
-
-  return Cities;
+  return Season;
 }(_wrapNativeSuper(HTMLElement));
 
-window.customElements.define('tui-cities', Cities);
+window.customElements.define('tui-season', Season);
 },{}],"../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -401,5 +386,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","tui-cities/index.js"], null)
-//# sourceMappingURL=/tui-cities.b3335eaf.js.map
+},{}]},{},["../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","tui-season/index.js"], null)
+//# sourceMappingURL=/tui-season.329bbc68.js.map

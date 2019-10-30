@@ -120,7 +120,33 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"tui-menu/index.js":[function(require,module,exports) {
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -141,7 +167,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 var template = document.createElement('template');
-template.innerHTML = "\n  <style>\n    .container {\n      padding: var(--main-padding, 68px);\n      background: var(--background-color, red);\n      color: var(--main-color, blue);\n    }\n  </style>\n  <div class=\"container\">\n    <button></button>\n  </div>\n";
+template.innerHTML = "\n  <style>\n    .container {\n      padding: var(--main-padding, 68px);\n      background: var(--background-color, red);\n      color: var(--main-color, blue);\n    }\n  </style>\n  <div class=\"container\">\n    <input type=\"text\" id=\"search\" />\n    <button>Search</button>\n  </div>\n";
 
 var TuiMeny =
 /*#__PURE__*/
@@ -154,6 +180,24 @@ function (_HTMLElement) {
     _classCallCheck(this, TuiMeny);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TuiMeny).call(this));
+    _this.filter = {};
+    _this.cities = [{
+      city: 'Stockholm',
+      continent: 'europe',
+      season: 'summer'
+    }, {
+      city: 'New York',
+      continent: 'north-america',
+      season: 'winter'
+    }, {
+      city: 'Berlin',
+      continent: 'europe',
+      season: 'winter'
+    }, {
+      city: 'Tokyo',
+      continent: 'asia',
+      season: 'winter'
+    }];
     _this.shadowRoot = _this.attachShadow({
       mode: 'open'
     });
@@ -161,16 +205,67 @@ function (_HTMLElement) {
     _this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     _this.button = _this.shadowRoot.querySelector('button');
-    _this.button.innerHTML = 'Load cities';
+    window.addEventListener('filter', function (_ref) {
+      var detail = _ref.detail;
+
+      _this.filterData(detail);
+    });
 
     _this.button.addEventListener('click', function () {
-      window.dispatchEvent(new CustomEvent('cities', {
-        detail: ['Stockholm', 'New York', 'Berlin', 'Milan']
-      }));
+      return _this.filterData(_this.cities);
     });
+
+    _this.filterData();
 
     return _this;
   }
+
+  _createClass(TuiMeny, [{
+    key: "filterData",
+    value: function filterData(data) {
+      var _this2 = this;
+
+      var current = _objectSpread({}, this.filter, {}, data);
+
+      var filterData = Object.keys(current).reduce(function (acc, key) {
+        if (current[key]) {
+          acc = _defineProperty({}, key, current[key]);
+        }
+
+        return acc;
+      }, {});
+      this.filter = _objectSpread({}, this.filter, {}, filterData);
+      console.log(this.filter);
+      var filtered = Object.entries(this.filter).reduce(function (acc, current) {
+        var _current = _slicedToArray(current, 2),
+            key = _current[0],
+            value = _current[1];
+
+        var filtered = _this2.cities.reduce(function (cities, city) {
+          if (city[key] === value) {
+            cities = [].concat(_toConsumableArray(cities), [city]);
+          }
+
+          return cities;
+        }, acc);
+
+        acc = [].concat(_toConsumableArray(acc), _toConsumableArray(filtered));
+        return acc;
+      }, []);
+      console.log(filtered);
+      this.fetch(filtered);
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.cities;
+      setTimeout(function () {
+        window.dispatchEvent(new CustomEvent('cities', {
+          detail: data
+        }));
+      }, 200);
+    }
+  }]);
 
   return TuiMeny;
 }(_wrapNativeSuper(HTMLElement));
@@ -204,7 +299,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59313" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54230" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -26,26 +26,18 @@ class Cities extends HTMLElement {
     });
   }
 
-  getCitiesAsList(data) {
-    return (typeof data === 'string') ? JSON.parse(data) : data;
-  }
-
   renderCities(data) {
-    return this.getCitiesAsList(data).map( city => `
+    return data.map( ({ city }) => `
         <li>
           <tui-city city="${city}"></tui-city>
         </li>
       `).join('');
   }
 
-  attributeChangedCallback(name, _, data) {
+  attributeChangedCallback(_, __, data) {
     this.render(
       this.renderCities(data)
     );
-  }
-  
-  static get observedAttributes() {
-    return ['cities'];
   }
 
   render(cityData) {
