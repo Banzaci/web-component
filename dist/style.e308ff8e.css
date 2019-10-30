@@ -1,9 +1,9 @@
 :root {
-  --main-color: red;
+  --main-color: #eee;
   --main-padding: 12px;
 }
 
-web-component {
+tui-menu {
   --background-color: grey;
 }
 

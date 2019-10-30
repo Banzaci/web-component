@@ -6,6 +6,9 @@
     "url": "https://github.com/Banzaci/web-component.git",
     "type": "git"
   },
+  "scripts": {
+    "start": "parcel index.html"
+  },
   "author": "Michael Larsson <michedotab@gmail.com>",
   "license": "MIT"
 }

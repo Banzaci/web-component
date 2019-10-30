@@ -5,12 +5,11 @@
       <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-      <web-component label="We component"></web-component>
-      <script src="./app.js"></script>
-      <script>
-        const element = document.querySelector('web-component');
-        element.label = 'Click Me';
-        element.addEventListener('onClick', value => console.log(value));
-      </script>
+      <tui-menu></tui-menu>
+      <tui-cities cities='["London"]'></tui-cities>
+      <tui-city city='Paris'></tui-city>
+      <script src="./tui-menu/index.js"></script>
+      <script src="./tui-cities/index.js"></script>
+      <script src="./tui-city/index.js"></script>
   </body>
 </html>
