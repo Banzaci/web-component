@@ -145,7 +145,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 var template = document.createElement('template');
-template.innerHTML = "\n  <style>\n    .container {\n      padding: var(--main-padding, 18px);\n      background: var(--background-color, black);\n      color: var(--main-color, white);\n    }\n  </style>\n  <li id=\"city\"></li>\n";
+template.innerHTML = "\n  <style>\n    .container {\n      padding: var(--main-padding, 18px);\n      background: var(--background-color, black);\n      color: var(--main-color, white);\n    }\n  </style>\n  <p id=\"city\"></p>\n";
 
 var City =
 /*#__PURE__*/
@@ -171,7 +171,6 @@ function (_HTMLElement) {
   _createClass(City, [{
     key: "attributeChangedCallback",
     value: function attributeChangedCallback(name, _, data) {
-      console.log('---- attributeChangedCallback', name, data);
       this.cityData = data;
       this.render();
     }
@@ -180,21 +179,9 @@ function (_HTMLElement) {
     value: function render() {
       this.element.innerHTML = this.cityData;
     }
-  }, {
-    key: "city",
-    set: function set(data) {
-      console.log('---- set city');
-      this.cityData = this.renderCities(data);
-      this.render();
-    },
-    get: function get() {
-      console.log('---- get city');
-      return this.cityData;
-    }
   }], [{
     key: "observedAttributes",
     get: function get() {
-      console.log('---- observedAttributes');
       return ['city'];
     }
   }]);
@@ -231,7 +218,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54597" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59313" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

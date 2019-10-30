@@ -165,23 +165,15 @@ function (_HTMLElement) {
     _this.shadowRoot.appendChild(template.content.cloneNode(true));
 
     _this.ul = _this.shadowRoot.querySelector('#cities');
-    _this.cityData = [];
+    window.addEventListener('cities', function (_ref) {
+      var detail = _ref.detail;
+
+      _this.render(_this.renderCities(detail));
+    });
     return _this;
   }
 
   _createClass(Cities, [{
-    key: "connectedCallback",
-    value: function connectedCallback() {
-      var _this2 = this;
-
-      window.addEventListener('cities', function (_ref) {
-        var detail = _ref.detail;
-        _this2.cityData = _this2.renderCities(detail);
-
-        _this2.render();
-      });
-    }
-  }, {
     key: "getCitiesAsList",
     value: function getCitiesAsList(data) {
       return typeof data === 'string' ? JSON.parse(data) : data;
@@ -189,38 +181,23 @@ function (_HTMLElement) {
   }, {
     key: "renderCities",
     value: function renderCities(data) {
-      console.log('---- renderCities', data);
       return this.getCitiesAsList(data).map(function (city) {
-        return "<tui-city city=\"".concat(city, "\"></tui-city>");
+        return "\n        <li>\n          <tui-city city=\"".concat(city, "\"></tui-city>\n        </li>\n      ");
       }).join('');
     }
   }, {
     key: "attributeChangedCallback",
     value: function attributeChangedCallback(name, _, data) {
-      console.log('---- attributeChangedCallback', name);
-      this.cityData = this.renderCities(data);
-      this.render();
+      this.render(this.renderCities(data));
     }
   }, {
     key: "render",
-    value: function render() {
-      this.ul.innerHTML = this.cityData;
-    }
-  }, {
-    key: "cities",
-    set: function set(data) {
-      console.log('---- set cities');
-      this.cityData = this.renderCities(data);
-      this.render();
-    },
-    get: function get() {
-      console.log('---- get cities');
-      return this.cityData;
+    value: function render(cityData) {
+      this.ul.innerHTML = cityData;
     }
   }], [{
     key: "observedAttributes",
     get: function get() {
-      console.log('---- observedAttributes');
       return ['cities'];
     }
   }]);
@@ -257,7 +234,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54597" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59313" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

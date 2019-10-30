@@ -8,7 +8,7 @@ template.innerHTML = `
       color: var(--main-color, white);
     }
   </style>
-  <li id="city"></li>
+  <p id="city"></p>
 `;
 
 class City extends HTMLElement {
@@ -20,25 +20,12 @@ class City extends HTMLElement {
   }
 
   attributeChangedCallback(name, _, data) {
-    console.log('---- attributeChangedCallback', name, data);
     this.cityData = data;
     this.render();
   }
   
   static get observedAttributes() {
-    console.log('---- observedAttributes');
     return ['city'];
-  }
-
-  set city(data) {
-    console.log('---- set city');
-    this.cityData = this.renderCities(data);
-    this.render();
-  }
-
-  get city() {
-    console.log('---- get city');
-    return this.cityData;
   }
 
   render() {

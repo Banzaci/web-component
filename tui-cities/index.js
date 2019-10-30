@@ -19,13 +19,10 @@ class Cities extends HTMLElement {
     this.shadowRoot = this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
     this.ul = this.shadowRoot.querySelector('#cities');
-    this.cityData = []
-  }
-
-  connectedCallback() {
     window.addEventListener('cities', ({ detail }) => {
-      this.cityData = this.renderCities(detail);
-      this.render();
+      this.render(
+        this.renderCities(detail)
+      );
     });
   }
 
@@ -34,34 +31,25 @@ class Cities extends HTMLElement {
   }
 
   renderCities(data) {
-    console.log('---- renderCities', data);
-    return this.getCitiesAsList(data).map( city => `<tui-city city="${city}"></tui-city>`).join('');
+    return this.getCitiesAsList(data).map( city => `
+        <li>
+          <tui-city city="${city}"></tui-city>
+        </li>
+      `).join('');
   }
 
   attributeChangedCallback(name, _, data) {
-    console.log('---- attributeChangedCallback', name);
-    this.cityData = this.renderCities(data);
-    this.render();
+    this.render(
+      this.renderCities(data)
+    );
   }
   
   static get observedAttributes() {
-    console.log('---- observedAttributes');
     return ['cities'];
   }
 
-  set cities(data) {
-    console.log('---- set cities');
-    this.cityData = this.renderCities(data);
-    this.render();
-  }
-
-  get cities() {
-    console.log('---- get cities');
-    return this.cityData;
-  }
-
-  render() {
-    this.ul.innerHTML = this.cityData;
+  render(cityData) {
+    this.ul.innerHTML = cityData;
   }
 }
 window.customElements.define('tui-cities', Cities);
